@@ -31,9 +31,6 @@ library(gridExtra)
 pointSize = 0.8
 
 
-
-
-
 colV <- c("#17b12a","#ffff66","#FF0000","#ef43dc","#3333ff","#66cc99")
 
 theme_new <- theme_set(theme_bw())
@@ -48,13 +45,12 @@ theme_new <- theme_update(
     panel.border=element_blank()
 )
 
-
 p12 <- ggplot(df12, aes(X, Y, color = aF))
 p12 <- p12 + scale_y_continuous(limits=c(-2.5, 2.7))
 p12 <- p12 + scale_x_continuous(limits=c(-2, 1.2))
 p12 <- p12 + scale_color_manual(values = colV)
 p12 <- p12 + geom_point(alpha = I(3/5), size=pointSize)
-p12 <- p12
+
 
 
 
@@ -64,7 +60,7 @@ p13 <- p13 + scale_y_continuous(limits=c(-2.5, 2.7))
 p13 <- p13 + scale_x_continuous(limits=c(-2, 1.2))
 p13 <- p13 + scale_color_manual(values = colV)
 p13 <- p13 + geom_point(alpha = I(3/5), size=pointSize)
-p13 <- p13 
+ 
 
 
 p23 <- ggplot(df23, aes(X, Y, color = aF))
@@ -72,7 +68,7 @@ p23 <- p23 + scale_y_continuous(limits=c(-2.5, 2.7))
 p23 <- p23 + scale_x_continuous(limits=c(-2, 1.2))
 p23 <- p23 + scale_color_manual(values = colV)
 p23 <- p23 + geom_point(alpha = I(3/5), size=pointSize)
-p23 <- p23 
+
 
 
 #=====reverses
@@ -81,7 +77,7 @@ p21 <- p21 + scale_y_continuous(limits=c(-2.5, 1.5))
 p21 <- p21 + scale_x_continuous(limits=c(-2, 1.2))
 p21 <- p21 + scale_color_manual(values = colV)
 p21 <- p21 + geom_point(alpha = I(3/5), size=pointSize)
-p21 <- p21 
+ 
 
 
 p31 <- ggplot(df13, aes(Y, X, color = aF))
@@ -89,7 +85,7 @@ p31 <- p31 + scale_y_continuous(limits=c(-2.5, 1.5))
 p31 <- p31 + scale_x_continuous(limits=c(-2, 1.2))
 p31 <- p31 + scale_color_manual(values = colV)
 p31 <- p31 + geom_point(alpha = I(3/5), size=pointSize)
-p31 <- p31 
+
 
 
 
@@ -98,7 +94,7 @@ p32 <- p32 + scale_y_continuous(limits=c(-2.5, 2.7))
 p32 <- p32 + scale_x_continuous(limits=c(-2, 1.2))
 p32 <- p32 + scale_color_manual(values = colV)
 p32 <- p32 + geom_point(alpha = I(3/5), size=pointSize)
-p32 <- p32 
+
 
 
 
@@ -109,3 +105,6 @@ grid.arrange(p13, p23, blackPanel,
              p12, blackPanel, p32,
              blackPanel, p21, p31,
              ncol=3)
+
+
+#ggsave(file = "PCAGrid.pdf",  useDingbats=FALSE)

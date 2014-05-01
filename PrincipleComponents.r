@@ -10,9 +10,10 @@ ssDataMat <- data.matrix(samsungData[,-c(562,563)])
 ssDataMat <- scale(ssDataMat)
 # calculate covariance matrix. ssCov = 561 x 561
 ssCov <- (t(ssDataMat) %*% ssDataMat) / nrow(ssDataMat)
+
 #singular value decomposition
 svd <- svd(ssCov)
-#construct KD reduction using first K components
+#construct PC reduction using first K components
 k <-2
 #in this case reduce dimensions from 561 to 2
 ssReduction <- ssDataMat %*% svd$u[,1:k]
@@ -30,15 +31,17 @@ dfReduction <- data.frame(X = ssReduction[,1],
 #laying, sitting, standing, walk, walkdown, walkup
 #green, yellow, red, magenta, blue, cyan
 
-
-colV <- c("#17b12a","#ffff66","#FF0000","#ef43dc","#3333ff","#66cc99")
+#laying, sitting, standing, 
+#walk, walkdown, walkup
+colV <- c("#17b12a","#ffff66","#FF0000",
+          "#ef43dc","#3333ff","#66cc99")
 theme_new <- theme_set(theme_bw())
 theme_new <- theme_update(
     legend.position="none",
     panel.grid.minor=element_blank(),
-    panel.grid.major=element_blank(), 
-    plot.background = element_rect(fill="black",color = NA), 
-    panel.background=element_rect(fill="black",color = NA),   
+    panel.grid.major = element_line(colour = 'grey', size = 0.3),
+    plot.background = element_rect(fill="white",color = NA), 
+    panel.background=element_rect(fill="white",color = NA),   
     axis.title.x=element_blank(),
     axis.title.y=element_blank(),
     panel.border=element_blank()
@@ -52,8 +55,10 @@ p <- ggplot(dfReduction, aes(X, Y, color = aF))
 p <- p + scale_y_continuous(limits=c(-5,4))
 p <- p + scale_x_continuous(limits=c(-3,1))
 p <- p + scale_color_manual(values = colV)
-p <- p + geom_point(alpha = I(3/5),  size=pointSize)
+p <- p + geom_point(alpha = I(5/5),  size=pointSize)
 p
+
+ggsave(file = "PCA.pdf",  useDingbats=FALSE)
 
 #calculate total variance explained
 #1. get the eigenvalues
