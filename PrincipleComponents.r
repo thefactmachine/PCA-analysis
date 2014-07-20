@@ -1,9 +1,10 @@
-
 rm(list=ls())
 library(ggplot2)
+library("RCurl")
+#read remote data
+x <- getURL("https://raw.githubusercontent.com/thefactmachine/PCA-Analysis/master/samsung.csv")
+samsungData <- read.csv(text = x)
 
-setwd('/Users/zurich/Google Drive/SITES/FactMachine-Final/PrincipleComponents')
-load("samsungData.rda")
 #create matrices without Y and Activity type
 ssDataMat <- data.matrix(samsungData[,-c(562,563)])
 # scale to mean = 0, sd =1. ssdataMat = 7352 x 561 
@@ -58,6 +59,7 @@ p <- p + scale_color_manual(values = colV)
 p <- p + geom_point(alpha = I(5/5),  size=pointSize)
 p
 
+
 ggsave(file = "PCA.pdf",  useDingbats=FALSE)
 
 #calculate total variance explained
@@ -76,7 +78,3 @@ dfX <- data.frame(names = names, X = X)
 dfXSorted <- dfX[order(-abs(dfX$X)),]
 #first 10 weights
 head(dfXSorted, 10)
-
-
-
-
