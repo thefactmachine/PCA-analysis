@@ -1,8 +1,14 @@
 rm(list=ls())
 library(ggplot2)
 library(gridExtra)
-setwd('/Users/zurich/Google Drive/SITES/FactMachine-Final/PrincipleComponents')
-load("samsungData.rda")
+library("RCurl")
+
+
+#read remote data
+x <- getURL("https://raw.githubusercontent.com/thefactmachine/PCA-Analysis/master/samsung.csv")
+samsungData <- read.csv(text = x)
+
+
 
 #create matrices without Y and Activity type
 ssDataMat <- data.matrix(samsungData[,-c(562,563)])
